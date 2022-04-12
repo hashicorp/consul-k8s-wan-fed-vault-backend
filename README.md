@@ -23,7 +23,14 @@ This repo show how to configure Vault as the backend for two Consul-K8s deployed
 
 ```VAULT_SERVER_HOST=$(kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}')```
 
-4. Create Helm values file which will be used to deploy the Vault agent injector in the second kubernetes cluster, dc2. 
+4. Check and confirm the VAULT_SERVER_HOST variable matches the Vault server's external IP address.
+```
+echo $VAULT_SERVER_HOST
+
+kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+```
+
+6. Create Helm values file which will be used to deploy the Vault agent injector in the second kubernetes cluster, dc2. 
 
 ```
 cat <<EOF >> vault-dc2.yaml
@@ -39,34 +46,34 @@ EOF
   
 5. Set the context to your dc2 kubernetes cluster
 
-  kubectl config use-context dc2
+```kubectl config use-context dc2```
   
 6. Deploy Vault agent injector to dc2
-  
-   helm install vault-dc2 -f vault-dc2.yaml hashicorp/vault --wait
+
+```helm install vault-dc2 -f vault-dc2.yaml hashicorp/vault --wait```
   
 
 # Next we configure the Vault instance with the config-vault.sh script provided
   
 8. Set the permission on the config-vault.sh script file.
   
-  chmod 777 config-vault.sh
+```chmod 777 config-vault.sh```
   
 9. Run config-vault.sh
   
-  source config-vault.sh
+```source config-vault.sh```
   
   
 # Now we can deploy Consul in dc1 
   
 10. Set the context to your dc1 kubernetes cluster
   
-  kubectl config use-context dc1
+```kubectl config use-context dc1```
   
   
 11. Deploy the primary Consul in dc1 with the consul-dc1.yaml file.
   
-  helm install consul-dc1 -f consul-dc1.yaml hashicorp/consul
+```helm install consul-dc1 -f consul-dc1.yaml hashicorp/consul```
   
 12. Confirm Consul successfully deploys:
 
@@ -88,7 +95,7 @@ EOF
 13. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
     We will use this to deploy and connect the secondary Consul tp the primary Consul.
   
-  MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+```MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')```
 
 14. Create the Consul helm values file for your secondary Consul deployment by copy/pasting the full command below.
 ```  
@@ -144,11 +151,11 @@ EOF
   
   16. Set the context to your dc2 kubernetes cluster
 
-  kubectl config use-context dc2
+```kubectl config use-context dc2```
   
   17. Deploy your secondary Consul
   
- helm install consul-dc2 -f consul-dc2.yaml hashicorp/consul
+```helm install consul-dc2 -f consul-dc2.yaml hashicorp/consul```
   
   
   
