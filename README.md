@@ -25,7 +25,7 @@ This repo show how to configure Vault as the backend for two Consul-K8s deployed
 
 4. Create Helm values file which will be used to deploy the Vault agent injector in the second kubernetes cluster, dc2. 
 
-`cat <<EOF >> vault-dc2.yaml
+cat <<EOF >> vault-dc2.yaml
 # vault-dc2.yaml
 server:
   enabled: false
@@ -33,8 +33,8 @@ injector:
   enabled: true
   externalVaultAddr: http://${VAULT_SERVER_HOST}:8200
   authPath: auth/kubernetes-dc2
-EOF`
-  
+EOF
+`code`
   
 5. Set the context to your dc2 kubernetes cluster
 
