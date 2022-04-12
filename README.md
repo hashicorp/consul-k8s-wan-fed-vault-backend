@@ -75,7 +75,7 @@ EOF
   
 ```helm install consul-dc1 -f consul-dc1.yaml hashicorp/consul```
   
-12. Confirm Consul successfully deploys. This may take a few minutes to fully complete. You may see the consul-mesh-gateway pod error out a couple of times before it successfully launches. This is expected.
+12. Confirm the primary Consul in dc1 successfully deploys. This may take a few minutes to fully complete. You may see the consul-mesh-gateway pod error out a couple of times before it successfully launches. This is expected.
 
     example:
 ```
@@ -157,6 +157,38 @@ EOF
   
 ```helm install consul-dc2 -f consul-dc2.yaml hashicorp/consul```
   
+  18. Confirm the primary Consul in dc2 successfully deploys. This may take a few minutes to fully complete. 
   
+  example
+```kubectl get pods
+NAME                                           READY   STATUS    RESTARTS   AGE
+consul-client-g44r5                            2/2     Running   0          106s
+consul-client-r7nn8                            2/2     Running   0          106s
+consul-client-smz85                            2/2     Running   0          106s
+consul-connect-injector-8c87566f-l87fd         2/2     Running   0          106s
+consul-controller-5d6fc5cdf9-wkflq             2/2     Running   0          106s
+consul-mesh-gateway-7cd99d4bc-kbb25            3/3     Running   0          106s
+consul-server-0                                2/2     Running   0          106s
+consul-webhook-cert-manager-7d55c485b7-zgh6q   1/1     Running   0          106s
+vault-dc2-agent-injector-549bf89c5c-zvm8w      1/1     Running   0          8m32s
+```
+
+19. Retreive external-ip of primary Consul UI. Then log into primary Consul UI
+example:
+```
+kubectl get service --context dc1
+kubectl get service --context dc1
+NAME                           TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                                                                   AGE
+consul-connect-injector        ClusterIP      10.0.57.134    <none>           443/TCP                                                                   8m22s
+consul-controller-webhook      ClusterIP      10.0.57.73     <none>           443/TCP                                                                   8m22s
+consul-dns                     ClusterIP      10.0.241.253   <none>           53/TCP,53/UDP                                                             8m22s
+consul-mesh-gateway            LoadBalancer   10.0.136.150   52.249.210.137   443:31601/TCP                                                             8m22s
+consul-server                  ClusterIP      None           <none>           8501/TCP,8301/TCP,8301/UDP,8302/TCP,8302/UDP,8300/TCP,8600/TCP,8600/UDP   8m22s
+consul-ui                      LoadBalancer   10.0.252.71    52.249.210.131   443:31869/TCP                                                             8m22s
+kubernetes                     ClusterIP      10.0.0.1       <none>           443/TCP                                                                   17m
+vault-dc1                      LoadBalancer   10.0.40.164    52.226.54.128    8200:30420/TCP,8201:31193/TCP                                             12m
+
+
+
   
   
