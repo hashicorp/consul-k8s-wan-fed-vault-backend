@@ -13,7 +13,7 @@ This repo show how to configure Vault as the backend for two Consul-K8s deployed
 
 1. Set the context to your dc1 kubernetes cluster
 
-  kubectl config use-context dc1
+  ```kubectl config use-context dc1```
 
 2. Install Vault in dev-mode to dc1
 
@@ -71,7 +71,7 @@ EOF
 12. Confirm Consul successfully deploys:
 
     example:
-
+```
     kubectl get pods   
     NAME                                           READY   STATUS    RESTARTS   AGE
     consul-client-8clws                            2/2     Running   0          5m30s
@@ -83,7 +83,7 @@ EOF
     consul-webhook-cert-manager-54fb557847-cbmxl   1/1     Running   0          7m17s
     vault-dc1-0                                    1/1     Running   0          56m
     vault-dc1-agent-injector-7857998c95-784st      1/1     Running   0          56m
-  
+```  
   
 13. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
     We will use this to deploy and connect the secondary Consul tp the primary Consul.
