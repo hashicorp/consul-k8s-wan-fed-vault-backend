@@ -173,10 +173,10 @@ consul-webhook-cert-manager-7d55c485b7-zgh6q   1/1     Running   0          106s
 vault-dc2-agent-injector-549bf89c5c-zvm8w      1/1     Running   0          8m32s
 ```
 
-19. Retreive external-ip of primary Consul UI. Then log into primary Consul UI
+19. Retreive external-ip of primary Consul UI. 
+
 example:
 ```
-kubectl get service --context dc1
 kubectl get service --context dc1
 NAME                           TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                                                                   AGE
 consul-connect-injector        ClusterIP      10.0.57.134    <none>           443/TCP                                                                   8m22s
@@ -187,8 +187,9 @@ consul-server                  ClusterIP      None           <none>           85
 consul-ui                      LoadBalancer   10.0.252.71    52.249.210.131   443:31869/TCP                                                             8m22s
 kubernetes                     ClusterIP      10.0.0.1       <none>           443/TCP                                                                   17m
 vault-dc1                      LoadBalancer   10.0.40.164    52.226.54.128    8200:30420/TCP,8201:31193/TCP                                             12m
-
-
+```
+Then log into primary Consul UI to confirm both dc1 and dc1 are connected. In browser, use https://<consul-ui-external-ip>:443.
+Example: ```https://52.249.210.131:443```
 
   
   
