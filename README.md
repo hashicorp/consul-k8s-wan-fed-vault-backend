@@ -13,15 +13,15 @@ This repo show how to configure Vault as the backend for two Consul-K8s deployed
 
 1. Set the context to your dc1 kubernetes cluster
 
-  ```kubectl config use-context dc1```
+```kubectl config use-context dc1```
 
 2. Install Vault in dev-mode to dc1
 
-  helm install vault-dc1 -f vault-dc1.yaml hashicorp/vault --wait
+```helm install vault-dc1 -f vault-dc1.yaml hashicorp/vault --wait```
 
 3. Set variable VAULT_SERVER_HOST with the external-IP of the newly deployed Vault service.
 
-  VAULT_SERVER_HOST=$(kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+```VAULT_SERVER_HOST=$(kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}')```
 
 4. Create Helm values file which will be used to deploy the Vault agent injector in the second kubernetes cluster, dc2. 
 
