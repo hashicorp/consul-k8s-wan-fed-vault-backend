@@ -91,7 +91,7 @@ EOF
   MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
 14. Create the Consul helm values file for your secondary Consul deployment by copy/pasting the full command below.
-  
+```  
 cat <<EOF >> consul-dc2.yaml
 global:
   datacenter: "dc2"
@@ -139,7 +139,7 @@ meshGateway:
   enabled: true
   replicas: 1
 EOF
-  
+```  
   
   
   16. Set the context to your dc2 kubernetes cluster
