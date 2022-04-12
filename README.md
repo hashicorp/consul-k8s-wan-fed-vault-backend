@@ -75,7 +75,7 @@ EOF
   
 ```helm install consul-dc1 -f consul-dc1.yaml hashicorp/consul```
   
-12. Confirm Consul successfully deploys:
+12. Confirm Consul successfully deploys. This may take a few minutes to fully complete. You may see the consul-mesh-gateway pod error out a couple of times before it successfully launches. This is expected.
 
     example:
 ```
