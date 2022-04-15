@@ -119,8 +119,12 @@ EOF
     vault-dc1-agent-injector-7857998c95-784st      1/1     Running   0          56m
 ```  
   
+# (Optional) Confirm Agent CA Certificates 
+13. On your Vault server UI,
   
-13. On your Vault server UI, you should see additional **connect_root** and **dc1/connect_inter/** secrets engines appear.
+# (Optional) Confirm Connect CA Certificates 
+
+14. On your Vault server UI, you should see additional **connect_root** and **dc1/connect_inter/** secrets engines appear.
   ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/connect-root-pki.png)
   
   To check that the Connect CA certificates on Vault matches with Connect CA certificates used on your Consul deployment, you can compare the two certificates in the **connect_root** UI page with the certificates returned from when querying the Consul server API.
@@ -133,7 +137,9 @@ EOF
    kubectl exec consul-server-0 -- curl --cacert /vault/secrets/serverca.crt -v https://localhost:8501/v1/agent/connect/ca/roots | jq
    ```
 
-# Deploy Secondard Consul on dc2.
+
+
+# Deploy Secondary Consul on dc2.
 
 
 14. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
