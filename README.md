@@ -128,14 +128,16 @@ EOF
    On Vault UI, click on one of the certiificates links and view the certificate.
    ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2012.37.52%20PM.png)
 
-   On Consul:
+   On Consul, run the command below to retrieve the root and intermediate certificates for the Connect CA:
    ```
    kubectl exec consul-server-0 -- curl --cacert /vault/secrets/serverca.crt -v https://localhost:8501/v1/agent/connect/ca/roots | jq
    ```
 
+# Deploy Secondard Consul on dc2.
+
 
 14. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
-    We will use this to deploy and connect the secondary Consul tp the primary Consul.
+    We will use this to deploy and connect the secondary Consul to the primary Consul.
   
 ```
 MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
