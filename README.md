@@ -5,7 +5,7 @@ High level steps:
 - Install Vault server (demo mode) in first Kube cluster (dc1) and install Vault agent in second Kube cluster (dc2).
 - Configure Vault server (enable K8s Auth methods, roles, policies, etc)
 - Deploy primary Consul cluster on dc1, using to values stored on Vault, like PKI engines, gossip, roles, etc.
-- Dpeloy secondary COnsul cluster on dc2, using to values stored on Vault, like PKI engines, replication tokens, roles, etc.
+- Dpeloy secondary Consul cluster on dc2, using to values stored on Vault, like PKI engines, replication tokens, roles, etc.
 
 ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2010.21.55%20AM.png "WAN FED Topology")
 
@@ -20,7 +20,7 @@ High level steps:
 
 # Deploy Vault in first Kube cluster. We have named this kube cluster: dc1
 
-1. Set the context to your dc1 kubernetes cluster
+1. Set the context to your **dc1** kubernetes cluster
 
 ```kubectl config use-context dc1```
 
@@ -53,7 +53,7 @@ injector:
 EOF
 ```
   
-5. Set the context to your dc2 kubernetes cluster
+5. Set the context to your **dc2** kubernetes cluster
 
 ```kubectl config use-context dc2```
   
@@ -75,7 +75,7 @@ EOF
   
 # Now we can deploy Consul in dc1 
   
-10. Set the context to your dc1 kubernetes cluster
+10. Set the context to your **dc1** kubernetes cluster
   
 ```kubectl config use-context dc1```
   
@@ -160,7 +160,7 @@ EOF
 ```  
   
   
-  16. Set the context to your dc2 kubernetes cluster
+  16. Set the context to your **dc2** kubernetes cluster
 
 ```kubectl config use-context dc2```
   
