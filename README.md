@@ -119,7 +119,11 @@ EOF
     vault-dc1-agent-injector-7857998c95-784st      1/1     Running   0          56m
 ```  
   
-13. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
+  
+13. On your Vault server UI, you should see additional **connect_root** and **dc1/connect_inter/** secrets engines appear.
+  ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2012.18.35%20PM.png)
+
+14. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
     We will use this to deploy and connect the secondary Consul tp the primary Consul.
   
 ```
