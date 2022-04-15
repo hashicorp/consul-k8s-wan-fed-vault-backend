@@ -121,7 +121,18 @@ EOF
   
   
 13. On your Vault server UI, you should see additional **connect_root** and **dc1/connect_inter/** secrets engines appear.
-  ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2012.18.35%20PM.png)
+  ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/connect-root-pki.png)
+  
+  To check that the Connect CA certificates on Vault matches with Connect CA certificates used on your Consul deployment, you can compare the two certificates in the **connect_root** UI page with the certificates returned from when querying the Consul server API.
+
+   On Vault UI, click on one of the certiificates links and view the certificate.
+   ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2012.37.52%20PM.png)
+
+   On Consul:
+   ```
+   kubectl exec consul-server-0 -- curl --cacert /vault/secrets/serverca.crt -v https://localhost:8501/v1/agent/connect/ca/roots | jq
+   ```
+
 
 14. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
     We will use this to deploy and connect the secondary Consul tp the primary Consul.
