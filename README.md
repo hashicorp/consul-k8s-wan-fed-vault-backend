@@ -1,6 +1,11 @@
 # consul-k8s-wan-fed-vault-backend
-This repo show how to configure Vault as the backend for two Consul-K8s deployed in a WAN Federation topology. 
+This repo shows how to configure Vault as the backend for two Consul-K8s deployed in a WAN Federation topology. 
 
+High level steps:
+- Install Vault server (demo mode) in first Kube cluster (dc1) and install Vault agent in second Kube cluster (dc2).
+- Configure Vault server (enable K8s Auth methods, roles, policies, etc)
+- Deploy primary Consul cluster on dc1, using to values stored on Vault, like PKI engines, gossip, roles, etc.
+- Dpeloy secondary COnsul cluster on dc2, using to values stored on Vault, like PKI engines, replication tokens, roles, etc.
 
 ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2010.21.55%20AM.png "WAN FED Topology")
 
