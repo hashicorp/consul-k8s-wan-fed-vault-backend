@@ -120,7 +120,11 @@ EOF
 ```  
   
 # (Optional) Confirm Agent CA Certificates 
-13. On your Vault server UI in the **pki** secrets engine, you should see two certificates cooresponding to the Consul Agent CA and the Consul server TLS certificate.
+13. On your Vault server UI in the **pki** secrets engine, you should see two certificates cooresponding to the Consul Agent CA and the Consul server TLS certificate. 
+
+   Note: If you see three certificates, it is likley a bug, but should be harmless.
+
+ ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%201.26.06%20PM.png)
 
    These should match with file on your Consul server's mounted file system ```/vault/secrets```.  Run the commands below to check that they match the certificates on Vault.
 ```
@@ -240,6 +244,19 @@ Node                 Address           Status  Type    Build   Protocol  DC   Pa
 consul-server-0.dc1  10.244.0.10:8302  alive   server  1.11.3  2         dc1  default    <all>
 consul-server-0.dc2  10.244.2.10:8302  alive   server  1.11.3  2         dc2  default    <all>
 ```
+
+# (Optional) Confirm Agent CA Certificates.
+
+On your Vault server UI in the **pki** secrets engine, you should see a new certificate cooresponding to secondary Consul server's TLS certificate on dc2. 
+
+   These should match with files on your Consul server's mounted file system ```/vault/secrets``` on **dc2**.  Run the commands below to check that they match the certificates on Vault.
+```
+kubectl exec consul-server-0 --context=dc2 -- cat /vault/secrets/serverca.crt 
+kubectl exec consul-server-0 --context=dc2 -- cat vault/secrets/servercert.crt 
+```  
+
+# (Optional) Confirm Connect CA Certificates.
+
 20. On your Vault server UI, you should see additional **connect_root** and **dc2/connect_inter/** secrets engines appear.
   
   You should see a third certificate appear on the **connect_root** UI page. To check that the Connect CA certificates on Vault matches with Connect CA certificates used on your Consul deployment, you can compare the third certificate in the **connect_root** UI page with the certificates returned from when querying the Consul server API.
