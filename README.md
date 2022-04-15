@@ -45,7 +45,7 @@ echo $VAULT_SERVER_HOST
 kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 ```
 
-6. Create Helm values file which will be used to deploy the Vault agent injector in the second kubernetes cluster, dc2. 
+5. Create Helm values file which will be used to deploy the Vault agent injector in the second kubernetes cluster, dc2. 
 
 ```
 cat <<EOF >> vault-dc2.yaml
@@ -59,11 +59,11 @@ injector:
 EOF
 ```
   
-5. Set the context to your **dc2** kubernetes cluster
+6. Set the context to your **dc2** kubernetes cluster
 
 ```kubectl config use-context dc2```
   
-6. Deploy Vault agent injector to dc2
+7. Deploy Vault agent injector to dc2
 
 ```helm install vault-dc2 -f vault-dc2.yaml hashicorp/vault --wait```
   
@@ -98,11 +98,11 @@ EOF
 ```kubectl config use-context dc1```
   
   
-11. Deploy the primary Consul in dc1 with the consul-dc1.yaml file.
+12. Deploy the primary Consul in dc1 with the consul-dc1.yaml file.
   
 ```helm install consul-dc1 -f consul-dc1.yaml hashicorp/consul```
   
-12. Confirm the primary Consul in dc1 successfully deploys. This may take a few minutes to fully complete. You may see the consul-mesh-gateway pod error out a couple of times before it successfully launches. This is expected.
+13. Confirm the primary Consul in dc1 successfully deploys. This may take a few minutes to fully complete. You may see the consul-mesh-gateway pod error out a couple of times before it successfully launches. This is expected.
 
     example:
 ```
@@ -120,7 +120,7 @@ EOF
 ```  
   
 # (Optional) Confirm Agent CA Certificates 
-13. On your Vault server UI in the **pki** secrets engine, you should see two certificates cooresponding to the Consul Agent CA and the Consul server TLS certificate. 
+14. On your Vault server UI in the **pki** secrets engine, you should see two certificates cooresponding to the Consul Agent CA and the Consul server TLS certificate. 
 
    Note: If you see three certificates, it is likley a bug, but should be harmless.
 
@@ -134,7 +134,7 @@ kubectl exec consul-server-0 --context=dc1 -- cat vault/secrets/servercert.crt
   
 # (Optional) Confirm Connect CA Certificates 
 
-14. On your Vault server UI, you should see additional **connect_root** and **dc1/connect_inter/** secrets engines appear.
+15. On your Vault server UI, you should see additional **connect_root** and **dc1/connect_inter/** secrets engines appear.
   ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/connect-root-pki.png)
   
   To check that the Connect CA certificates on Vault matches with Connect CA certificates used on your Consul deployment, you can compare the two certificates in the **connect_root** UI page with the certificates returned from when querying the Consul server API.
@@ -152,14 +152,14 @@ kubectl exec consul-server-0 --context=dc1 -- cat vault/secrets/servercert.crt
 # Deploy Secondary Consul on dc2.
 
 
-14. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
+16. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
     We will use this to deploy and connect the secondary Consul to the primary Consul.
   
 ```
 MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 ```
 
-14. Create the Consul helm values file for your secondary Consul deployment by copy/pasting the full command below.
+17. Create the Consul helm values file for your secondary Consul deployment by copy/pasting the full command below.
 ```  
 cat <<EOF >> consul-dc2.yaml
 global:
@@ -211,15 +211,15 @@ EOF
 ```  
   
   
-  16. Set the context to your **dc2** kubernetes cluster
+  18. Set the context to your **dc2** kubernetes cluster
 
 ```kubectl config use-context dc2```
   
-  17. Deploy your secondary Consul
+  19. Deploy your secondary Consul
   
 ```helm install consul-dc2 -f consul-dc2.yaml hashicorp/consul```
   
-  18. Confirm the primary Consul in dc2 successfully deploys. This may take a few minutes to fully complete. 
+  20. Confirm the primary Consul in dc2 successfully deploys. This may take a few minutes to fully complete. 
   
   example
 ```kubectl get pods
@@ -235,7 +235,7 @@ consul-webhook-cert-manager-7d55c485b7-zgh6q   1/1     Running   0          106s
 vault-dc2-agent-injector-549bf89c5c-zvm8w      1/1     Running   0          8m32s
 ```
 
-19. Confirm both Consul deployments are part of the WAN Federation:
+21. Confirm both Consul deployments are part of the WAN Federation:
 
 ```
 kubectl exec consul-server-0 --context=dc1 -- consul members -wan -ca-file /vault/secrets/serverca.crt
@@ -257,11 +257,12 @@ kubectl exec consul-server-0 --context=dc2 -- cat vault/secrets/servercert.crt
 
 # (Optional) Confirm Connect CA Certificates.
 
-20. On your Vault server UI, you should see additional **connect_root** and **dc2/connect_inter/** secrets engines appear.
+22. On your Vault server UI, you should see additional **connect_root** and **dc2/connect_inter/** secrets engines appear.
   
   You should see a third certificate appear on the **connect_root** UI page. To check that the Connect CA certificates on Vault matches with Connect CA certificates used on your Consul deployment, you can compare the third certificate in the **connect_root** UI page with the certificates returned from when querying the Consul server API.
 
    On Vault UI, click on the newest certificate links and view the certificate.
+   
    ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%201.11.11%20PM.png)
 
    On Consul, run the command below to retrieve the root and intermediate certificates for the Connect CA. You should see an additional intermediate certificate attached to the primary Consul's intermediate certificate.
