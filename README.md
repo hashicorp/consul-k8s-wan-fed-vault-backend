@@ -16,6 +16,11 @@ High level steps:
 2. Two Kubernetes Clusters. In our example, we will name them dc1 and dc2.
    - This example will use two Kubernetes cluster privided by Azure Kubernetees Service (AKS) but other Kubernetes clusters should also work.
    - In our example, we will specify the Azure CNI, which will require you to select an existing VNET for your pod IPs. 
+3. You will need to have Consul installed locally if you want to run the script provided from your local machine. The reason is because the script will run the **consul keygen** command which requires Consul. It will then store the output of the command onto a Vault KV store. If you do not have Consul locally, you can edit the script to explicitly set the gossip key
+
+```
+vault kv put consul/secret/gossip key="<YOUR_GOSSIP_KEY>"
+```
 
 
 # Deploy Vault in first Kube cluster. We have named this kube cluster: dc1
