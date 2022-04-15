@@ -219,23 +219,25 @@ consul-webhook-cert-manager-7d55c485b7-zgh6q   1/1     Running   0          106s
 vault-dc2-agent-injector-549bf89c5c-zvm8w      1/1     Running   0          8m32s
 ```
 
-19. Retreive external-ip of primary Consul UI. 
+19. Confirm both Consul deployments are part of the WAN Federation:
 
-example:
 ```
-kubectl get service --context dc1
-NAME                           TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                                                                   AGE
-consul-connect-injector        ClusterIP      10.0.57.134    <none>           443/TCP                                                                   8m22s
-consul-controller-webhook      ClusterIP      10.0.57.73     <none>           443/TCP                                                                   8m22s
-consul-dns                     ClusterIP      10.0.241.253   <none>           53/TCP,53/UDP                                                             8m22s
-consul-mesh-gateway            LoadBalancer   10.0.136.150   52.249.210.137   443:31601/TCP                                                             8m22s
-consul-server                  ClusterIP      None           <none>           8501/TCP,8301/TCP,8301/UDP,8302/TCP,8302/UDP,8300/TCP,8600/TCP,8600/UDP   8m22s
-consul-ui                      LoadBalancer   10.0.252.71    52.249.210.131   443:31869/TCP                                                             8m22s
-kubernetes                     ClusterIP      10.0.0.1       <none>           443/TCP                                                                   17m
-vault-dc1                      LoadBalancer   10.0.40.164    52.226.54.128    8200:30420/TCP,8201:31193/TCP                                             12m
+kubectl exec consul-server-0 --context=dc1 -- consul members -wan -ca-file /vault/secrets/serverca.crt
+Defaulted container "consul" out of: consul, vault-agent, vault-agent-init (init)
+Node                 Address           Status  Type    Build   Protocol  DC   Partition  Segment
+consul-server-0.dc1  10.244.0.10:8302  alive   server  1.11.3  2         dc1  default    <all>
+consul-server-0.dc2  10.244.2.10:8302  alive   server  1.11.3  2         dc2  default    <all>
 ```
-Then log into primary Consul UI to confirm both dc1 and dc1 are connected. In browser, use https://<consul-ui-external-ip>:443.
-Example: ```https://52.249.210.131:443```
-
+20. On your Vault server UI, you should see additional **connect_root** and **dc2/connect_inter/** secrets engines appear.
   
+  You should see a third certificate appear on the **connect_root** UI page. To check that the Connect CA certificates on Vault matches with Connect CA certificates used on your Consul deployment, you can compare the third certificate in the **connect_root** UI page with the certificates returned from when querying the Consul server API.
+
+   On Vault UI, click on the newest certificate links and view the certificate.
+   ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%201.11.11%20PM.png)
+
+   On Consul, run the command below to retrieve the root and intermediate certificates for the Connect CA. You should see an additional intermediate certificate attached to the primary Consul's intermediate certificate.
+   ```
+   kubectl exec consul-server-0 -- curl --cacert /vault/secrets/serverca.crt -v https://localhost:8501/v1/agent/connect/ca/roots | jq
+   ```
+
   
