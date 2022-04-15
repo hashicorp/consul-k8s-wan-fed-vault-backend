@@ -1,6 +1,11 @@
 # consul-k8s-wan-fed-vault-backend
 This repo show how to configure Vault as the backend for two Consul-K8s deployed in a WAN Federation topology. 
 
+https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2010.21.55%20AM.png
+
+![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2010.21.55%20AM.png "Logo Title Text 1")
+
+
 # Pre-reqs
 1. A exsiting VNET/VPC. 
    - In our example, we will use Azure VNET. 
