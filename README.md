@@ -95,7 +95,9 @@ EOF
 13. Set the MESH_GW_HOST variable to point to the Mesh Gateway's external-IP that was launched on your primary Consul deployment. 
     We will use this to deploy and connect the secondary Consul tp the primary Consul.
   
-```MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')```
+```
+MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+```
 
 14. Create the Consul helm values file for your secondary Consul deployment by copy/pasting the full command below.
 ```  
