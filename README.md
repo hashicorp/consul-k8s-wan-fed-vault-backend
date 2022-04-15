@@ -83,8 +83,11 @@ EOF
    ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2011.48.54%20AM.png)
 
    Confirm the Consul gossip and replication secrets are located in the **consul/** secrets engine.
+   
   ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2012.04.55%20PM.png)
-   Confirm the Consul Agent CA's certificate also appears in the **pki** secrets engine. It should say **Consul CA**
+   
+   Confirm the Consul Agent CA's certificate also appears in the **pki** secrets engine. It should say **Consul CA**.
+   
   ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2012.11.07%20PM.png)
   
   
