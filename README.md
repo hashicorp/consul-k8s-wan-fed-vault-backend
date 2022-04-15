@@ -138,10 +138,10 @@ kubectl exec consul-server-0 --context=dc1 -- cat vault/secrets/servercert.crt
   
   To check that the Connect CA certificates on Vault matches with Connect CA certificates used on your Consul deployment, you can compare the two certificates in the **connect_root** UI page with the certificates returned from when querying the Consul server API.
 
-   On Vault UI, click on one of the certiificates links and view the certificate.
+   On Vault UI, click on the certiificates links and view the certificate. 
    ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2012.37.52%20PM.png)
 
-   On Consul, run the command below to retrieve the root and intermediate certificates for the Connect CA:
+   On Consul, run the command below to retrieve the root and intermediate certificates for the Connect CA. Confirm they match with the certiifcates from the Vault UI.
    ```
    kubectl exec consul-server-0 -- curl --cacert /vault/secrets/serverca.crt -v https://localhost:8501/v1/agent/connect/ca/roots | jq
    ```
