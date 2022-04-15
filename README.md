@@ -27,11 +27,15 @@ vault kv put consul/secret/gossip key="<YOUR_GOSSIP_KEY>"
 
 1. Set the context to your **dc1** kubernetes cluster
 
-```kubectl config use-context dc1```
+```
+kubectl config use-context dc1
+```
 
 2. Install Vault in dev-mode to dc1
 
-```helm install vault-dc1 -f vault-dc1.yaml hashicorp/vault --wait```
+```
+helm install vault-dc1 -f vault-dc1.yaml hashicorp/vault --wait
+```
 
 3. Set variable VAULT_SERVER_HOST with the external-IP of the newly deployed Vault service.
 
@@ -60,22 +64,30 @@ EOF
   
 6. Set the context to your **dc2** kubernetes cluster
 
-```kubectl config use-context dc2```
+```
+kubectl config use-context dc2
+```
   
 7. Deploy Vault agent injector to dc2
 
-```helm install vault-dc2 -f vault-dc2.yaml hashicorp/vault --wait```
+```
+helm install vault-dc2 -f vault-dc2.yaml hashicorp/vault --wait
+```
   
 
 # Next we configure the Vault instance with the config-vault.sh script provided
   
 8. Set the permission on the config-vault.sh script file.
   
-```chmod 777 config-vault.sh```
+```
+chmod 777 config-vault.sh
+```
   
 9. Run config-vault.sh
   
-```source config-vault.sh```
+```
+source config-vault.sh
+```
   
 10. Vault should now be configured. Log onto your Vault server to confirm the consul/ and pki engines show appear.
 
@@ -94,12 +106,16 @@ EOF
   
 11. Set the context to your **dc1** kubernetes cluster
   
-```kubectl config use-context dc1```
+```
+kubectl config use-context dc1
+```
   
   
 12. Deploy the primary Consul in dc1 with the consul-dc1.yaml file.
   
-```helm install consul-dc1 -f consul-dc1.yaml hashicorp/consul```
+```
+helm install consul-dc1 -f consul-dc1.yaml hashicorp/consul
+```
   
 13. Confirm the primary Consul in dc1 successfully deploys. This may take a few minutes to fully complete. You may see the consul-mesh-gateway pod error out a couple of times before it successfully launches. This is expected.
 
@@ -212,11 +228,15 @@ EOF
   
   18. Set the context to your **dc2** kubernetes cluster
 
-```kubectl config use-context dc2```
+```
+kubectl config use-context dc2
+```
   
   19. Deploy your secondary Consul
   
-```helm install consul-dc2 -f consul-dc2.yaml hashicorp/consul```
+```
+helm install consul-dc2 -f consul-dc2.yaml hashicorp/consul
+```
   
   20. Confirm the primary Consul in dc2 successfully deploys. This may take a few minutes to fully complete. 
   
