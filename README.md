@@ -120,7 +120,13 @@ EOF
 ```  
   
 # (Optional) Confirm Agent CA Certificates 
-13. On your Vault server UI,
+13. On your Vault server UI in the **pki** secrets engine, you should see two certificates cooresponding to the Consul Agent CA and the Consul server TLS certificate.
+
+   These should match with file on your Consul server's mounted file system ```/vault/secrets```.  Run the commands below to check that they match the certificates on Vault.
+```
+kubectl exec consul-server-0 --context=dc1 -- cat /vault/secrets/serverca.crt 
+kubectl exec consul-server-0 --context=dc1 -- cat vault/secrets/servercert.crt 
+```   
   
 # (Optional) Confirm Connect CA Certificates 
 
