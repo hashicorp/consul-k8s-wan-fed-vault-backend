@@ -78,10 +78,17 @@ EOF
   
 ```source config-vault.sh```
   
+10. Vault should now be configured. Log onto your Vault server to confirm the consul/ and pki engines show appear.
+
+   ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2011.48.54%20AM.png)
+
+   Confirm the Consul gossip and replication secrets are located in the **consul/** secrets engine.
+  
+   Confirm the Consul Agent CA's certificate also appears in the **pki** secrets engine.
   
 # Now we can deploy Consul in dc1 
   
-10. Set the context to your **dc1** kubernetes cluster
+11. Set the context to your **dc1** kubernetes cluster
   
 ```kubectl config use-context dc1```
   
