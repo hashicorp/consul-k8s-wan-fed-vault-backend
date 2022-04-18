@@ -89,7 +89,8 @@ chmod 777 config-vault.sh
 source config-vault.sh
 ```
   
-10. Vault should now be configured. Log onto your Vault server to confirm the consul/ and pki engines show appear.
+10. Vault should now be configured. Log onto your Vault server to confirm the consul/ and pki engines show appear. Vault server's externa-IP service can be retreived with ```get svc vault-dc1 --context=dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}'```
+Use port 8200 in your browsers. Example: ```http://20.85.158.201:8200```
 
    ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/Screen%20Shot%202022-04-15%20at%2011.48.54%20AM.png)
 
