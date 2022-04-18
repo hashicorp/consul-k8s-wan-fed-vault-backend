@@ -1,0 +1,14 @@
+# vault-dc2.yaml
+server:
+  enabled: false
+injector:
+  enabled: true
+  externalVaultAddr: http://20.88.168.207:8200
+  authPath: auth/kubernetes-dc2
+# vault-dc2.yaml
+server:
+  enabled: false
+injector:
+  enabled: true
+  externalVaultAddr: http://20.121.229.64:8200
+  authPath: auth/kubernetes-dc2
