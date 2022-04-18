@@ -43,13 +43,6 @@ helm install vault-dc1 -f vault-dc1.yaml hashicorp/vault --wait
 VAULT_SERVER_HOST=$(kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 ```
 
-4. Check and confirm the VAULT_SERVER_HOST variable matches the Vault server's external IP address.
-```
-echo $VAULT_SERVER_HOST
-
-kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
-```
-
 
 # Deploy Vault in second Kube cluster. We have named this kube cluster: dc2
 
