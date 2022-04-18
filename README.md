@@ -50,6 +50,9 @@ echo $VAULT_SERVER_HOST
 kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 ```
 
+
+# Deploy Vault in second Kube cluster. We have named this kube cluster: dc2
+
 5. Create Helm values file which will be used to deploy the Vault agent injector in the second kubernetes cluster, dc2. 
 
 ```
