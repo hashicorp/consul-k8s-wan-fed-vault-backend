@@ -39,7 +39,9 @@ helm install vault-dc1 -f vault-dc1.yaml hashicorp/vault --wait
 
 3. Set variable VAULT_SERVER_HOST with the external-IP of the newly deployed Vault service.
 
-```VAULT_SERVER_HOST=$(kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}')```
+```
+VAULT_SERVER_HOST=$(kubectl get svc vault-dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+```
 
 4. Check and confirm the VAULT_SERVER_HOST variable matches the Vault server's external IP address.
 ```
