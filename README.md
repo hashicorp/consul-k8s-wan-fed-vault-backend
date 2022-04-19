@@ -180,7 +180,7 @@ MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway --context=dc1 -o jsonpath='{.
 
 17. Create the Consul helm values file for your secondary Consul deployment by copy/pasting the full command below.
 ```  
-cat <<EOF >> consul-dc2.yaml
+cat <<EOF > consul-dc2.yaml
 global:
   datacenter: "dc2"
   name: consul
@@ -204,6 +204,7 @@ global:
   federation:
     enabled: true
     primaryDatacenter: dc1
+    k8sAuthMethodHost: ${KUBE_API_URL_DC2}
     primaryGateways:
     - ${MESH_GW_HOST}:443
   acls:
