@@ -154,6 +154,7 @@ kubectl exec consul-server-0 --context=dc1 -- cat vault/secrets/servercert.crt
 # (Optional) Confirm Connect CA Certificates 
 
 15. On your Vault server UI, you should see additional **connect_root** and **dc1/connect_inter/** secrets engines appear.
+
   ![alt text](https://github.com/hashicorp/consul-k8s-wan-fed-vault-backend/blob/main/images/connect-root-pki.png)
   
   To check that the Connect CA certificates on Vault matches with Connect CA certificates used on your Consul deployment, you can compare the two certificates in the **connect_root** UI page with the certificates returned from when querying the Consul server API.
@@ -294,4 +295,11 @@ kubectl exec consul-server-0 --context=dc2 -- cat vault/secrets/servercert.crt
    kubectl exec consul-server-0 -- curl --cacert /vault/secrets/serverca.crt -v https://localhost:8501/v1/agent/connect/ca/roots | jq
    ```
 
+  # Delete Mesh Federation 
   
+23. You can run the delete whole deployment with the delete-wan-fed.sh script.
+
+```
+chmod 777 delete-wan-fed.sh
+./delete-wan-fed.sh
+```
