@@ -1,0 +1,19 @@
+# auth-method.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vault-dc2-auth-method
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: vault-dc2-auth-method
+  namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vault-dc2-auth-method
+  namespace: default
