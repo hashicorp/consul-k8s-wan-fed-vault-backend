@@ -25,8 +25,7 @@ vault kv put consul/secret/gossip key="<YOUR_GOSSIP_KEY>"
 
 # Deploy Vault in first Kube cluster. We have named this kube cluster: dc1
 
-1. After you've clone the repo, navigate to ```the consul-k8s-wan-fed-vault-backend
-/aks``` directory and set the context to your **dc1** kubernetes cluster
+1. After you've clone the repo, navigate to the ```consul-k8s-wan-fed-vault-backend/aks``` directory and set the context to your **dc1** kubernetes cluster
 
 ```
 kubectl config use-context dc1
