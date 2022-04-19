@@ -118,7 +118,7 @@ kubectl config use-context dc1
 12. Deploy the primary Consul in dc1 with the consul-dc1.yaml file.
   
 ```
-helm install consul-dc1 -f consul-dc1.yaml hashicorp/consul
+helm install consul-dc1 -f consul-dc1.yaml --version=0.42 hashicorp/consul
 ```
   
 13. Confirm the primary Consul in dc1 successfully deploys. This may take a few minutes to fully complete. You may see the consul-mesh-gateway pod error out a couple of times before it successfully launches. This is expected.
@@ -240,7 +240,7 @@ kubectl config use-context dc2
   19. Deploy your secondary Consul
   
 ```
-helm install consul-dc2 -f consul-dc2.yaml hashicorp/consul
+helm install consul-dc2 -f consul-dc2.yaml --version=0.42 hashicorp/consul
 ```
   
   20. Confirm the primary Consul in dc2 successfully deploys. This may take a few minutes to fully complete. 
