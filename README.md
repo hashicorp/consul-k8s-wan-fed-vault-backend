@@ -175,7 +175,7 @@ kubectl exec consul-server-0 --context=dc1 -- cat vault/secrets/servercert.crt
     We will use this to deploy and connect the secondary Consul to the primary Consul.
   
 ```
-MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+MESH_GW_HOST=$(kubectl get svc consul-mesh-gateway --context=dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 ```
 
 17. Create the Consul helm values file for your secondary Consul deployment by copy/pasting the full command below.
