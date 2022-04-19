@@ -124,7 +124,6 @@ EOF
 # Configure the Consul server PKI. This is for the Consul Agent CA on the control plane.
 
 echo Enabling PKI and configuring for Consul Agent CA  
-vault secrets tune -max-lease-ttl=87600h pki
 vault secrets enable pki
 vault write pki/root/generate/internal common_name="Consul CA" ttl=87600h
 
