@@ -91,7 +91,7 @@ source config-vault.sh
 ```
 kubectl get svc vault-dc1 --context=dc1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 ```
-Use port 8200 in your browsers. Example: ```http://20.85.158.201:8200```
+Use port 8200 on your browser. Example: ```http://20.85.158.201:8200```
 
 Root password for Vault in demo-mode is ```root```
 
