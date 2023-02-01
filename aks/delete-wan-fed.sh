@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 kubectl config use-context dc2
 helm delete vault-dc2
 consul-k8s uninstall -auto-approve -wipe-data   
