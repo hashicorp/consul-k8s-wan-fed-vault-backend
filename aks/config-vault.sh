@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # config Vault Script
 # This is based on a gist provided by Iryna Shustava on Engineering team
 # https://gist.github.com/ishustava/508be6f6c6480b4a68c91fae07cfb811#file-vault-wan-fed-mdx
